@@ -365,15 +365,6 @@
       SVG_TYPE +
       '<span class="game-launch-mode__lbl">SAISIR</span></button>' +
       "</div>" +
-      '<div class="game-launch__ranked" id="game-launch-ranked-wrap" hidden>' +
-      '<p class="game-launch__ranked-cap">Mode classé · temps limité</p>' +
-      '<p class="game-launch__ranked-desc">Choisis une durée : le chrono affiche le temps restant (cooldown). Le rang dépend du score.</p>' +
-      '<div class="game-launch__durations" role="radiogroup" aria-label="Durée du défi classé">' +
-      '<label class="game-launch__dur"><input type="radio" name="ranked-dur" value="free" checked /> Partie libre</label>' +
-      '<label class="game-launch__dur"><input type="radio" name="ranked-dur" value="25" /> 25 s</label>' +
-      '<label class="game-launch__dur"><input type="radio" name="ranked-dur" value="45" /> 45 s</label>' +
-      '<label class="game-launch__dur"><input type="radio" name="ranked-dur" value="90" /> 1 min 30</label>' +
-      "</div></div>" +
       '<button type="button" class="game-launch__cta" id="game-launch-start">Commencer le quiz</button>' +
       "</div></div></div>";
 
@@ -382,18 +373,7 @@
     return root;
   }
 
-  /** Défis autorisés pour le mode classé : ajoute data-ranked="true" sur le lien du mini-jeu. */
-  function isRankedEligible(anchor) {
-    return !!(anchor && anchor.getAttribute("data-ranked") === "true");
-  }
-
-  function updateLaunchRankedVisibility(root) {
-    var wrap = document.getElementById("game-launch-ranked-wrap");
-    if (!wrap) return;
-    var pinOn = root.querySelector('.game-launch-mode[data-mode="pin"][data-active="true"]');
-    var show = !!(pinOn && lastQuizAnchor && isRankedEligible(lastQuizAnchor));
-    wrap.hidden = !show;
-  }
+  function updateLaunchRankedVisibility() {}
 
   function setGameLaunchMode(root, mode) {
     root.querySelectorAll(".game-launch-mode").forEach(function (btn) {
@@ -473,14 +453,6 @@
       var mode = modeBtn ? modeBtn.getAttribute("data-mode") : "pin";
       var casual = true;
       var rankedSec = null;
-      var rw = document.getElementById("game-launch-ranked-wrap");
-      if (rw && !rw.hidden) {
-        var inp = rw.querySelector('input[name="ranked-dur"]:checked');
-        if (inp && inp.value !== "free") {
-          casual = false;
-          rankedSec = parseInt(inp.value, 10);
-        }
-      }
       closeGameLaunch();
       if (mode === "pin") {
         openGamePin({ casual: casual, rankedSeconds: rankedSec, typingMode: false });
@@ -575,6 +547,17 @@
     return /drapeau/i.test(lastQuizTitle || "");
   }
 
+  function detectQuizRegionKey() {
+    var t = (lastQuizTitle || "").toLowerCase();
+    if (/asie/.test(t)) return "asie";
+    if (/afrique/.test(t)) return "afrique";
+    if (/amerique du nord|amérique du nord/.test(t)) return "amerique-nord";
+    if (/amerique du sud|amérique du sud/.test(t)) return "amerique-sud";
+    if (/oceanie|océanie/.test(t)) return "oceanie";
+    if (/monde|world/.test(t)) return "monde";
+    return "europe";
+  }
+
   var EUROPE_FLAG_ITEMS = [
     { id: "al", name: "Albanie", flag: "🇦🇱", answers: ["Albanie"] },
     { id: "de", name: "Allemagne", flag: "🇩🇪", answers: ["Allemagne"] },
@@ -661,6 +644,8 @@
     silhouetteMode: false,
     flagsMode: false,
     typingMode: false,
+    activeRegion: "europe",
+    forcedRegion: null,
     clip: [],
     startedAtMs: 0,
     savedHistory: false,
@@ -842,6 +827,8 @@
     var cap = forced ? forced === "CAPITALES" : isCapitalsPinQuiz();
     var sil = forced ? forced === "SILHOUETTES" : !cap && isSilhouettePinQuiz();
     var flags = forced ? forced === "DRAPEAUX" : !cap && !sil && isFlagsQuiz();
+    var region = pinState.forcedRegion || detectQuizRegionKey();
+    pinState.activeRegion = region;
     pinState.capitalMode = cap;
     pinState.silhouetteMode = sil;
     pinState.flagsMode = flags;
@@ -860,7 +847,9 @@
     if (!M) {
       return q;
     } else if (cap) {
-      var caps = M.capitals;
+      var caps = M.capitals.filter(function (x) {
+        return region === "monde" ? true : x.region === region;
+      });
       var nc = caps.length;
       if (nc === 0) return q;
       for (var j = 0; j < PIN_TOTAL; j++) {
@@ -875,7 +864,9 @@
         });
       }
     } else {
-      var lands = M.countries;
+      var lands = M.countries.filter(function (x) {
+        return region === "monde" ? true : x.region === region;
+      });
       var nl = lands.length;
       if (nl === 0) return q;
       for (var k = 0; k < PIN_TOTAL; k++) {
@@ -916,7 +907,14 @@
     var cellW = (width - padX * 2) / cols;
     var cellH = (height - padY * 2) / rows;
     var inner = 10;
+    var active = pinState.activeRegion || "europe";
     paths.forEach(function (p, i) {
+      var preg = p.getAttribute("data-region") || "monde";
+      if (active !== "monde" && preg !== active) {
+        p.style.display = "none";
+        return;
+      }
+      p.style.display = "";
       p.removeAttribute("transform");
       var b;
       try {
@@ -1048,8 +1046,10 @@
         var s = document.createElementNS("http://www.w3.org/2000/svg", "path");
         s.setAttribute("class", "game-pin__silhouette");
         s.setAttribute("data-iso", c.iso);
+        s.setAttribute("data-region", c.region || "monde");
         s.setAttribute("d", c.d);
         silLayer.appendChild(s);
+        p.setAttribute("data-region", c.region || "monde");
       });
       M.capitals.forEach(function (cap) {
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -1510,6 +1510,7 @@
     pinState.casual = opts.forceRanked ? false : !pinState.rankedSeconds;
     pinState.typingMode = !!opts.typingMode;
     pinState.forcedKind = opts.quizKind || null;
+    pinState.forcedRegion = opts.quizRegion || null;
     pinState.queue = buildPinQueue();
     if (pinState.typingMode && !pinState.flagsMode) {
       pinState.typingMode = false;
@@ -1521,6 +1522,14 @@
     var M = getEuropeMapData();
     if (M && M.land) {
       root.style.setProperty("--map-fill", M.land);
+      var svg = document.getElementById("game-pin-svg");
+      var reg = pinState.activeRegion || "europe";
+      var vb = M.regions && M.regions[reg] && M.regions[reg].viewBox;
+      if (svg && vb && vb.length === 4) {
+        svg.setAttribute("viewBox", vb.join(" "));
+      } else if (svg && M.viewBox && M.viewBox.length === 4) {
+        svg.setAttribute("viewBox", M.viewBox.join(" "));
+      }
     }
     pinState.index = 0;
     pinState.correct = 0;
@@ -1532,9 +1541,11 @@
     pinState.savedHistory = false;
     pinState.lastRankLabel = "";
     pinState.forcedKind = null;
+    pinState.forcedRegion = null;
     applyPinMapMode(root);
     pinApplyMiniGameVisibility();
     root.classList.toggle("game-pin--ranked", !pinState.casual);
+    root.classList.toggle("game-pin--casual", !!pinState.casual);
     root.hidden = false;
     root.setAttribute("aria-hidden", "false");
     document.body.classList.add("game-pin-active");
@@ -1547,7 +1558,10 @@
     }
     pinShowRound();
     if (pinState.casual) {
-      startPinTimerElapsed();
+      stopAllPinTimers();
+      var timerEl = document.getElementById("game-pin-timer");
+      if (timerEl) timerEl.textContent = "";
+      pinHudSyncTimer("");
     } else {
       startRankedCountdown();
     }
@@ -1568,11 +1582,13 @@
     root.setAttribute("aria-hidden", "true");
     document.body.classList.remove("game-pin-active");
     root.classList.remove("game-pin--ranked");
+    root.classList.remove("game-pin--casual");
     var tip = document.getElementById("game-pin-tip");
     if (tip) tip.hidden = true;
     var el = document.getElementById("game-pin-timer");
     if (el) el.classList.remove("game-pin__timer--cooldown", "game-pin__timer--warn");
     pinState.forcedKind = null;
+    pinState.forcedRegion = null;
   }
 
   function closeGamePinIfOpen() {
@@ -1708,6 +1724,7 @@
       rankedSeconds: game.timer > 0 ? game.timer : null,
       typingMode: !!game.typing,
       quizKind: game.cat || null,
+      quizRegion: game.region || null,
     });
   }
 

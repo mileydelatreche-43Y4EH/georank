@@ -1,5 +1,6 @@
 /**
- * Génère js/europe-map-data.js à partir du GeoJSON Natural Earth (Europe).
+ * Génère js/europe-map-data.js à partir du GeoJSON Natural Earth (monde entier),
+ * avec méta-régions pour zoom dynamique par défi.
  * Exécution : node scripts/build_europe_map.js
  */
 const fs = require("fs");
@@ -25,12 +26,11 @@ const raw = JSON.parse(fs.readFileSync(GEOJSON, "utf8"));
 const EUROPE = new Set(["Europe"]);
 const features = raw.features.filter((f) => EUROPE.has(f.properties.REGION_UN));
 
-const fc = { type: "FeatureCollection", features };
+const fc = { type: "FeatureCollection", features: raw.features };
 
 const w = 1000;
 const h = 520;
 const projection = geoMercator()
-  .rotate([-10, 0, 0])
   .fitExtent(
     [
       [8, 8],
@@ -141,8 +141,17 @@ const capitals = [
   { iso: "XK", name: "Kosovo", city: "Pristina", lon: 21.1655, lat: 42.6629 },
 ];
 
+const regionAlias = {
+  Europe: "europe",
+  Asia: "asie",
+  Africa: "afrique",
+  "North America": "amerique-nord",
+  "South America": "amerique-sud",
+  Oceania: "oceanie",
+};
+
 const countries = [];
-for (const f of features) {
+for (const f of raw.features) {
   const p = f.properties;
   const a3 = p.ADM0_A3;
   const a2 = p.ISO_A2;
@@ -151,10 +160,12 @@ for (const f of features) {
   if (!d) continue;
   const nameFr = p.NAME_FR || p.NAME;
   const flag = isoToFlag[a3] || isoToFlag[a2] || "🏳️";
+  const reg = regionAlias[p.REGION_UN] || "monde";
   countries.push({
     iso: a3,
     iso2: a2,
     name: nameFr,
+    region: reg,
     flag,
     d,
   });
@@ -162,18 +173,37 @@ for (const f of features) {
 
 const capitalsOut = capitals.map((c) => {
   const xy = projection([c.lon, c.lat]);
+  const country = countries.find((x) => x.iso === c.iso || x.iso2 === c.iso);
   return {
     id: "cap-" + c.iso.toLowerCase(),
     iso: c.iso,
     name: c.name,
     city: c.city,
     flag: isoToFlag[c.iso] || "🏳️",
+    region: country ? country.region : "europe",
     lon: c.lon,
     lat: c.lat,
     cx: xy[0],
     cy: xy[1],
   };
 });
+
+function regionViewBox(regionKey) {
+  const subset = raw.features.filter((f) => (regionAlias[f.properties.REGION_UN] || "monde") === regionKey);
+  if (!subset.length) return [0, 0, w, h];
+  const bounds = geoPath(projection).bounds({ type: "FeatureCollection", features: subset });
+  let x0 = bounds[0][0];
+  let y0 = bounds[0][1];
+  let x1 = bounds[1][0];
+  let y1 = bounds[1][1];
+  const padX = (x1 - x0) * 0.3;
+  const padY = (y1 - y0) * 0.3;
+  x0 = Math.max(0, x0 - padX);
+  y0 = Math.max(0, y0 - padY);
+  x1 = Math.min(w, x1 + padX);
+  y1 = Math.min(h, y1 + padY);
+  return [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)];
+}
 
 const header = `/* Généré par scripts/build_europe_map.js — ne pas éditer à la main */
 (function (global) {
@@ -189,6 +219,15 @@ const data = {
   border: "#ffffff",
   countries,
   capitals: capitalsOut,
+  regions: {
+    europe: { viewBox: regionViewBox("europe") },
+    asie: { viewBox: regionViewBox("asie") },
+    afrique: { viewBox: regionViewBox("afrique") },
+    "amerique-nord": { viewBox: regionViewBox("amerique-nord") },
+    "amerique-sud": { viewBox: regionViewBox("amerique-sud") },
+    oceanie: { viewBox: regionViewBox("oceanie") },
+    monde: { viewBox: [0, 0, w, h] },
+  },
 };
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
