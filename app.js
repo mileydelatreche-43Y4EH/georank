@@ -8,6 +8,31 @@
     if (!guest || !user) return;
     guest.hidden = loggedIn;
     user.hidden = !loggedIn;
+    renderHeaderRankBadge();
+  }
+
+  function renderHeaderRankBadge() {
+    var el = document.getElementById("header-rank-badge");
+    if (!el) return;
+    /* computeOverallRank est défini plus bas mais appelé ici après chargement complet */
+    var hist = loadRankedHistory ? loadRankedHistory() : [];
+    if (!hist || !hist.length) { el.hidden = true; return; }
+    /* Moyenne des meilleurs % par quiz */
+    var byQuiz = {};
+    hist.forEach(function (h) {
+      var k = h.quizTitle || "?";
+      if (!(k in byQuiz) || (h.pct || 0) > byQuiz[k]) byQuiz[k] = h.pct || 0;
+    });
+    var keys = Object.keys(byQuiz);
+    var avgPct = Math.round(keys.reduce(function (a, k) { return a + byQuiz[k]; }, 0) / keys.length);
+    var r = rankFromPercent ? rankFromPercent(avgPct) : null;
+    if (!r) { el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML =
+      '<div class="hdr-rank__badge rk-badge--' + r.tier.key + '" style="--rank-color:' + r.tier.color + ';--rank-fill:' + r.tier.barFill + '">★</div>' +
+      '<div class="hdr-rank__info">' +
+        '<span class="hdr-rank__label">' + r.fullLabel + '</span>' +
+      '</div>';
   }
 
   function closeProfileMenu() {
@@ -686,6 +711,7 @@
     appendRankedHistory(entry);
     pinState.savedHistory = true;
     renderScoresPage();
+    renderHeaderRankBadge();
   }
 
   /* ——— Système de rang complet ——————————————————————————————————————————

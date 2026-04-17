@@ -173,6 +173,40 @@ a:hover {
   border-bottom-color: var(--accent);
 }
 
+/* ── Rank badge dans le header ── */
+.header-rank-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 0.75rem;
+}
+.hdr-rank__badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rank-fill, #374151) 0%, var(--rank-color, #374151) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 900;
+  box-shadow: 0 0 10px var(--rank-color, transparent);
+  flex-shrink: 0;
+}
+.hdr-rank__info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.hdr-rank__label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
