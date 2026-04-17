@@ -1673,6 +1673,21 @@ body.game-pin-active {
   transition: filter 0.15s ease, fill 0.15s ease;
 }
 
+/* Pays hors zone du défi : plus foncés + non cliquables */
+.game-pin__land.is-out-region,
+.game-pin__silhouette.is-out-region {
+  fill: #1f5a31 !important;
+  opacity: 0.9;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+.game-pin__capital-dot.is-out-region {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .game-pin__capital-layer {
   pointer-events: none;
 }

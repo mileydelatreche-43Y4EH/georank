@@ -1069,6 +1069,7 @@
         circle.setAttribute("class", "game-pin__capital-dot");
         circle.setAttribute("data-cap-id", cap.id);
         circle.setAttribute("data-iso", cap.iso);
+        circle.setAttribute("data-region", cap.region || "monde");
         circle.setAttribute("cx", String(cap.cx));
         circle.setAttribute("cy", String(cap.cy));
         circle.setAttribute("r", "5");
@@ -1126,14 +1127,17 @@
         if (pinState.capitalMode) {
           var dot = e.target.closest && e.target.closest("circle[data-cap-id]");
           if (!dot) return;
+          if (dot.classList.contains("is-out-region")) return;
           pinOnPick({ capId: dot.getAttribute("data-cap-id"), el: dot });
         } else if (pinState.silhouetteMode) {
           var sil = e.target.closest && e.target.closest("path.game-pin__silhouette[data-iso]");
           if (!sil) return;
+          if (sil.classList.contains("is-out-region")) return;
           pinOnPick({ iso: sil.getAttribute("data-iso"), el: sil });
         } else {
           var path = e.target.closest && e.target.closest("path[data-iso]");
           if (!path) return;
+          if (path.classList.contains("is-out-region")) return;
           pinOnPick({ iso: path.getAttribute("data-iso"), el: path });
         }
       });
@@ -1277,6 +1281,20 @@
     }
   }
 
+  function pinApplyRegionMask() {
+    var reg = pinState.activeRegion || "europe";
+    var isWorld = reg === "monde";
+    var root = document.getElementById("game-pin-root");
+    if (root) root.setAttribute("data-active-region", reg);
+    document
+      .querySelectorAll(".game-pin__land[data-region], .game-pin__silhouette[data-region], .game-pin__capital-dot[data-region]")
+      .forEach(function (el) {
+        var r = el.getAttribute("data-region") || "monde";
+        var out = !isWorld && r !== reg;
+        el.classList.toggle("is-out-region", out);
+      });
+  }
+
   function pinShowRound() {
     if (pinState.gameEnded) return;
     if (pinState.index >= pinState.queue.length) {
@@ -1308,6 +1326,7 @@
     if (tipName) tipName.textContent = label;
     if (tipFlag) tipFlag.textContent = " " + c.flag;
     pinApplyMiniGameVisibility();
+    pinApplyRegionMask();
     if (typeFlag && pinState.flagsMode && pinState.typingMode) typeFlag.textContent = c.flag;
     if (typeInput && pinState.flagsMode && pinState.typingMode) {
       typeInput.value = "";
@@ -1694,6 +1713,7 @@
     pinState.lastRankLabel = "";
     applyPinMapMode(root);
     pinApplyMiniGameVisibility();
+    pinApplyRegionMask();
     root.classList.toggle("game-pin--ranked", !pinState.casual);
     root.classList.toggle("game-pin--casual", !!pinState.casual);
     root.hidden = false;
