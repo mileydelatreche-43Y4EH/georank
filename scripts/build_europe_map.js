@@ -188,22 +188,36 @@ const capitalsOut = capitals.map((c) => {
   };
 });
 
-function regionViewBox(regionKey) {
-  const subset = raw.features.filter((f) => (regionAlias[f.properties.REGION_UN] || "monde") === regionKey);
-  if (!subset.length) return [0, 0, w, h];
-  const bounds = geoPath(projection).bounds({ type: "FeatureCollection", features: subset });
-  let x0 = bounds[0][0];
-  let y0 = bounds[0][1];
-  let x1 = bounds[1][0];
-  let y1 = bounds[1][1];
-  const padX = (x1 - x0) * 0.3;
-  const padY = (y1 - y0) * 0.3;
+function viewBoxFromLonLat(minLon, minLat, maxLon, maxLat, pad = 0.12) {
+  const pts = [
+    projection([minLon, minLat]),
+    projection([minLon, maxLat]),
+    projection([maxLon, minLat]),
+    projection([maxLon, maxLat]),
+  ].filter(Boolean);
+  if (!pts.length) return [0, 0, w, h];
+  let x0 = Math.min(...pts.map((p) => p[0]));
+  let y0 = Math.min(...pts.map((p) => p[1]));
+  let x1 = Math.max(...pts.map((p) => p[0]));
+  let y1 = Math.max(...pts.map((p) => p[1]));
+  const padX = (x1 - x0) * pad;
+  const padY = (y1 - y0) * pad;
   x0 = Math.max(0, x0 - padX);
   y0 = Math.max(0, y0 - padY);
   x1 = Math.min(w, x1 + padX);
   y1 = Math.min(h, y1 + padY);
   return [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)];
 }
+
+const REGION_PRESET_BOUNDS = {
+  // Europe recentrée (évite l'extrême est russe)
+  europe: [-25, 30, 55, 72],
+  asie: [25, -5, 150, 65],
+  afrique: [-25, -36, 60, 38],
+  "amerique-nord": [-170, 7, -20, 83],
+  "amerique-sud": [-92, -58, -28, 15],
+  oceanie: [110, -50, 180, 5],
+};
 
 const header = `/* Généré par scripts/build_europe_map.js — ne pas éditer à la main */
 (function (global) {
@@ -220,12 +234,12 @@ const data = {
   countries,
   capitals: capitalsOut,
   regions: {
-    europe: { viewBox: regionViewBox("europe") },
-    asie: { viewBox: regionViewBox("asie") },
-    afrique: { viewBox: regionViewBox("afrique") },
-    "amerique-nord": { viewBox: regionViewBox("amerique-nord") },
-    "amerique-sud": { viewBox: regionViewBox("amerique-sud") },
-    oceanie: { viewBox: regionViewBox("oceanie") },
+    europe: { viewBox: viewBoxFromLonLat(...REGION_PRESET_BOUNDS.europe) },
+    asie: { viewBox: viewBoxFromLonLat(...REGION_PRESET_BOUNDS.asie) },
+    afrique: { viewBox: viewBoxFromLonLat(...REGION_PRESET_BOUNDS.afrique) },
+    "amerique-nord": { viewBox: viewBoxFromLonLat(...REGION_PRESET_BOUNDS["amerique-nord"]) },
+    "amerique-sud": { viewBox: viewBoxFromLonLat(...REGION_PRESET_BOUNDS["amerique-sud"]) },
+    oceanie: { viewBox: viewBoxFromLonLat(...REGION_PRESET_BOUNDS.oceanie) },
     monde: { viewBox: [0, 0, w, h] },
   },
 };
