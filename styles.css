@@ -2205,6 +2205,97 @@ body.game-pin-active {
 }
 .game-pin-result__btn:hover { filter: brightness(1.1); }
 
+/* Overlay récap fin de partie */
+.game-pin-recap {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.game-pin-recap[hidden] { display: none !important; }
+.game-pin-recap__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(5px);
+}
+.game-pin-recap__card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 520px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(180deg, #111827 0%, #0b1220 100%);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.6);
+  padding: 1.4rem 1.3rem 1.2rem;
+  text-align: center;
+}
+.game-pin-recap__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+.game-pin-recap__time {
+  margin: 0 0 0.9rem;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #93c5fd;
+  font-variant-numeric: tabular-nums;
+}
+.game-pin-recap__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+.game-pin-recap__stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.5rem 0.55rem;
+  text-align: left;
+}
+.game-pin-recap__stat span {
+  display: block;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.game-pin-recap__stat strong {
+  display: block;
+  margin-top: 0.15rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+.game-pin-recap__actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.game-pin-recap__btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.game-pin-recap__btn--menu {
+  color: #e5e7eb;
+  background: rgba(255,255,255,0.12);
+}
+.game-pin-recap__btn--replay {
+  color: #fff;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    PAGE MODE CLASSÉ (ranked.html)
    ═══════════════════════════════════════════════════════════════════ */

@@ -653,6 +653,7 @@
     forcedKind: null,
     targetMisses: 0,
     revealRequired: false,
+    lastLaunchOpts: null,
   };
 
   function pushClipEvent(action, extra) {
@@ -1021,7 +1022,17 @@
       /* ── Pied : highscore message ── */
       '<p class="rk-footer" id="rk-footer">—</p>' +
       '<button type="button" class="game-pin-result__btn" id="game-pin-result-close">Fermer</button>' +
-      "</div></div>";
+      "</div></div>" +
+      '<div class="game-pin-recap" id="game-pin-recap" hidden role="dialog" aria-modal="true" aria-labelledby="game-pin-recap-title">' +
+      '<div class="game-pin-recap__backdrop"></div>' +
+      '<div class="game-pin-recap__card">' +
+      '<h2 class="game-pin-recap__title" id="game-pin-recap-title">Récapitulatif</h2>' +
+      '<p class="game-pin-recap__time" id="game-pin-recap-time">00:00.000</p>' +
+      '<div class="game-pin-recap__stats" id="game-pin-recap-stats"></div>' +
+      '<div class="game-pin-recap__actions">' +
+      '<button type="button" class="game-pin-recap__btn game-pin-recap__btn--menu" id="game-pin-recap-menu">Menu</button>' +
+      '<button type="button" class="game-pin-recap__btn game-pin-recap__btn--replay" id="game-pin-recap-replay">Rejouer</button>' +
+      "</div></div></div>";
 
     document.body.appendChild(root);
 
@@ -1091,6 +1102,24 @@
         closeGamePin();
       });
     }
+    var recapMenu = document.getElementById("game-pin-recap-menu");
+    var recapReplay = document.getElementById("game-pin-recap-replay");
+    if (recapMenu) {
+      recapMenu.addEventListener("click", function () {
+        var recap = document.getElementById("game-pin-recap");
+        if (recap) recap.hidden = true;
+        closeGamePin();
+      });
+    }
+    if (recapReplay) {
+      recapReplay.addEventListener("click", function () {
+        var recap = document.getElementById("game-pin-recap");
+        if (recap) recap.hidden = true;
+        var opts = pinState.lastLaunchOpts || {};
+        closeGamePin();
+        openGamePin(opts);
+      });
+    }
     if (svg) {
       svg.addEventListener("click", function (e) {
         if (pinState.flagsMode) return;
@@ -1141,6 +1170,23 @@
     var m = Math.floor(sec / 60);
     var s = sec % 60;
     return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function formatDurationMs(ms) {
+    var n = Math.max(0, Math.floor(ms || 0));
+    var m = Math.floor(n / 60000);
+    var s = Math.floor((n % 60000) / 1000);
+    var mm = n % 1000;
+    return (
+      (m < 10 ? "0" : "") +
+      m +
+      ":" +
+      (s < 10 ? "0" : "") +
+      s +
+      "." +
+      (mm < 100 ? (mm < 10 ? "00" : "0") : "") +
+      mm
+    );
   }
 
   function pinUpdateBar() {
@@ -1403,11 +1449,7 @@
     if (el) {
       el.classList.remove("game-pin__timer--cooldown", "game-pin__timer--warn");
     }
-    if (pinState.casual) {
-      document.getElementById("game-pin-target").textContent = "Terminé !";
-    } else {
-      showPinRankOverlay("complete");
-    }
+    showPinRecapOverlay("complete");
   }
 
   function pinTimeUp() {
@@ -1420,7 +1462,38 @@
       el.textContent = "00:00";
       el.classList.remove("game-pin__timer--warn");
     }
-    showPinRankOverlay("timeout");
+    showPinRecapOverlay("timeout");
+  }
+
+  function showPinRecapOverlay(reason) {
+    var recap = document.getElementById("game-pin-recap");
+    if (!recap) return;
+    var durationMs = Math.max(0, Date.now() - (pinState.startedAtMs || Date.now()));
+    var attempts = pinState.correct + pinState.wrong;
+    var acc = attempts ? Math.round((pinState.correct / attempts) * 100) : 0;
+    var pctTotal = Math.min(100, Math.round((pinState.correct / PIN_TOTAL) * 100));
+    var r = rankFromPercent(pctTotal);
+    var timeEl = document.getElementById("game-pin-recap-time");
+    var stats = document.getElementById("game-pin-recap-stats");
+    if (timeEl) timeEl.textContent = formatDurationMs(durationMs);
+    if (stats) {
+      stats.innerHTML =
+        '<div class="game-pin-recap__stat"><span>Score</span><strong>' + pinState.correct + " / " + PIN_TOTAL + "</strong></div>" +
+        '<div class="game-pin-recap__stat"><span>Précision</span><strong>' + acc + "%</strong></div>" +
+        '<div class="game-pin-recap__stat"><span>Erreurs</span><strong>' + pinState.wrong + "</strong></div>" +
+        '<div class="game-pin-recap__stat"><span>Mode</span><strong>' + currentModeLabel() + "</strong></div>" +
+        (!pinState.casual
+          ? '<div class="game-pin-recap__stat"><span>Rang</span><strong>' + r.fullLabel + "</strong></div>"
+          : "");
+    }
+    recap.hidden = false;
+    if (!pinState.casual) {
+      pinState.lastRankLabel = r.fullLabel;
+      pushClipEvent(reason === "timeout" ? "fin timeout" : "fin complete", { target: r.fullLabel });
+      persistRankedResult(reason);
+    }
+    var replayBtn = document.getElementById("game-pin-recap-replay");
+    if (replayBtn) replayBtn.focus();
   }
 
   function showPinRankOverlay(reason) {
@@ -1578,9 +1651,19 @@
 
   function openGamePin(opts) {
     opts = opts || {};
+    pinState.lastLaunchOpts = {
+      casual: !!opts.casual,
+      forceRanked: !!opts.forceRanked,
+      rankedSeconds: opts.rankedSeconds || null,
+      typingMode: !!opts.typingMode,
+      quizKind: opts.quizKind || null,
+      quizRegion: opts.quizRegion || null,
+    };
     var root = ensureGamePin();
     var res = document.getElementById("game-pin-result");
     if (res) res.hidden = true;
+    var recap = document.getElementById("game-pin-recap");
+    if (recap) recap.hidden = true;
     pinState.rankedSeconds = opts.rankedSeconds > 0 ? opts.rankedSeconds : null;
     pinState.casual = opts.forceRanked ? false : !pinState.rankedSeconds;
     pinState.typingMode = !!opts.typingMode;
@@ -1615,8 +1698,6 @@
     pinState.startedAtMs = Date.now();
     pinState.savedHistory = false;
     pinState.lastRankLabel = "";
-    pinState.forcedKind = null;
-    pinState.forcedRegion = null;
     applyPinMapMode(root);
     pinApplyMiniGameVisibility();
     root.classList.toggle("game-pin--ranked", !pinState.casual);
@@ -1653,6 +1734,8 @@
     stopAllPinTimers();
     var res = document.getElementById("game-pin-result");
     if (res) res.hidden = true;
+    var recap = document.getElementById("game-pin-recap");
+    if (recap) recap.hidden = true;
     root.hidden = true;
     root.setAttribute("aria-hidden", "true");
     document.body.classList.remove("game-pin-active");
