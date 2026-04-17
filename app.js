@@ -1768,8 +1768,7 @@
     var grid = document.getElementById("rk-grid");
     if (!grid) return;
     var filtered = RANKED_GAMES.filter(function (g) {
-      return (rankedState.diff === "all" || g.diff === rankedState.diff) &&
-             (rankedState.region === "all" || g.region === rankedState.region);
+      return (rankedState.region === "all" || g.region === rankedState.region);
     });
     grid.innerHTML = "";
     if (filtered.length === 0) {
@@ -1854,18 +1853,6 @@
 
     renderRankedPageUserBar();
     renderRankedGrid();
-
-    /* Diff tabs */
-    document.querySelectorAll(".rk-diff-tab").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        rankedState.diff = btn.getAttribute("data-diff");
-        document.querySelectorAll(".rk-diff-tab").forEach(function (b) {
-          b.classList.toggle("is-active", b.getAttribute("data-diff") === rankedState.diff);
-        });
-        closeRankedPanel();
-        renderRankedGrid();
-      });
-    });
 
     /* Region tabs */
     document.querySelectorAll(".rk-region-tab").forEach(function (btn) {
