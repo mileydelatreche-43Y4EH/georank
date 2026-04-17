@@ -1377,6 +1377,8 @@
           pinPaintTargetState(cur, "is-target-miss2");
         } else if (pinState.targetMisses === 1) {
           pinPaintTargetState(cur, "is-target-miss1");
+        } else {
+          pinPaintTargetState(cur, "is-target-clean");
         }
         setTimeout(pinShowRound, 260);
       } else {
