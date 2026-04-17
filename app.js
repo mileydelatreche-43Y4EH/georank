@@ -1304,7 +1304,6 @@
     pinState.current = pinState.queue[pinState.index];
     pinState.targetMisses = 0;
     pinState.revealRequired = false;
-    pinResetTargetVisualState();
     var c = pinState.current;
     var target = document.getElementById("game-pin-target");
     var flagbar = document.getElementById("game-pin-flagbar");
@@ -1711,6 +1710,7 @@
     pinState.startedAtMs = Date.now();
     pinState.savedHistory = false;
     pinState.lastRankLabel = "";
+    pinResetTargetVisualState();
     applyPinMapMode(root);
     pinApplyMiniGameVisibility();
     pinApplyRegionMask();
