@@ -651,6 +651,8 @@
     savedHistory: false,
     lastRankLabel: "",
     forcedKind: null,
+    targetMisses: 0,
+    revealRequired: false,
   };
 
   function pushClipEvent(action, extra) {
@@ -1164,6 +1166,45 @@
     if (el) el.textContent = text;
   }
 
+  function pinResetTargetVisualState() {
+    var sel = [
+      ".game-pin__land",
+      ".game-pin__silhouette",
+      ".game-pin__capital-dot",
+    ].join(",");
+    document.querySelectorAll(sel).forEach(function (el) {
+      el.classList.remove(
+        "is-target-miss1",
+        "is-target-miss2",
+        "is-target-reveal",
+        "is-target-final",
+        "is-target-clean"
+      );
+    });
+  }
+
+  function pinGetTargetEls(cur) {
+    if (!cur) return [];
+    if (cur.kind === "k") {
+      return Array.prototype.slice.call(document.querySelectorAll('.game-pin__capital-dot[data-cap-id="' + cur.id + '"]'));
+    }
+    if (cur.kind === "c") {
+      return Array.prototype.slice.call(
+        document.querySelectorAll(
+          '.game-pin__land[data-iso="' + cur.iso + '"], .game-pin__silhouette[data-iso="' + cur.iso + '"]'
+        )
+      );
+    }
+    return [];
+  }
+
+  function pinPaintTargetState(cur, stateCls) {
+    pinGetTargetEls(cur).forEach(function (el) {
+      el.classList.remove("is-target-miss1", "is-target-miss2", "is-target-reveal", "is-target-final", "is-target-clean");
+      if (stateCls) el.classList.add(stateCls);
+    });
+  }
+
   function pinApplyMiniGameVisibility() {
     var svg = document.getElementById("game-pin-svg");
     var tip = document.getElementById("game-pin-tip");
@@ -1197,6 +1238,9 @@
       return;
     }
     pinState.current = pinState.queue[pinState.index];
+    pinState.targetMisses = 0;
+    pinState.revealRequired = false;
+    pinResetTargetVisualState();
     var c = pinState.current;
     var target = document.getElementById("game-pin-target");
     var flagbar = document.getElementById("game-pin-flagbar");
@@ -1240,16 +1284,36 @@
     } else {
       ok = hit.iso === cur.iso;
     }
+
+    if (pinState.revealRequired && !ok && cur.kind !== "f") {
+      return;
+    }
+
     if (ok) {
       pinState.correct++;
       pinState.index++;
       if (el) {
-        el.classList.add("is-correct");
-        setTimeout(function () {
-          if (el) el.classList.remove("is-correct");
-        }, 500);
+        if (cur.kind === "f") {
+          el.classList.add("is-correct");
+          setTimeout(function () {
+            if (el) el.classList.remove("is-correct");
+          }, 500);
+        }
       }
-      pinShowRound();
+      if (cur.kind !== "f") {
+        if (pinState.revealRequired || pinState.targetMisses >= 3) {
+          pinPaintTargetState(cur, "is-target-final");
+        } else if (pinState.targetMisses === 2) {
+          pinPaintTargetState(cur, "is-target-miss2");
+        } else if (pinState.targetMisses === 1) {
+          pinPaintTargetState(cur, "is-target-miss1");
+        } else {
+          pinPaintTargetState(cur, "is-target-clean");
+        }
+        setTimeout(pinShowRound, 260);
+      } else {
+        pinShowRound();
+      }
     } else {
       pinState.wrong++;
       if (el) {
@@ -1257,6 +1321,17 @@
         setTimeout(function () {
           if (el) el.classList.remove("is-wrong");
         }, 450);
+      }
+      if (cur.kind !== "f") {
+        pinState.targetMisses++;
+        if (pinState.targetMisses === 1) {
+          pinPaintTargetState(cur, "is-target-miss1");
+        } else if (pinState.targetMisses === 2) {
+          pinPaintTargetState(cur, "is-target-miss2");
+        } else if (pinState.targetMisses >= 3) {
+          pinState.revealRequired = true;
+          pinPaintTargetState(cur, "is-target-reveal");
+        }
       }
       pinUpdateBar();
     }

@@ -1516,6 +1516,10 @@ body.game-pin-active {
   text-align: center;
 }
 
+.game-pin--casual .game-pin__timer {
+  display: none;
+}
+
 .game-pin__timer--cooldown {
   background: rgba(30, 58, 95, 0.9);
   border-color: rgba(96, 165, 250, 0.45);
@@ -1803,6 +1807,47 @@ body.game-pin-active {
 
 .game-pin__svg .game-pin__land.is-correct {
   animation: game-pin-correct 0.5s ease;
+}
+
+/* États progressifs sur le pays cible:
+   0 faute -> blanc
+   1 faute -> jaune clair
+   2 fautes -> jaune foncé
+   3 fautes -> rouge clignotant, puis rouge fixe après clic
+*/
+.game-pin__land.is-target-clean,
+.game-pin__silhouette.is-target-clean {
+  fill: #f8fafc !important;
+}
+
+.game-pin__land.is-target-miss1,
+.game-pin__silhouette.is-target-miss1 {
+  fill: #ffe082 !important;
+}
+
+.game-pin__land.is-target-miss2,
+.game-pin__silhouette.is-target-miss2 {
+  fill: #d9a611 !important;
+}
+
+.game-pin__land.is-target-reveal,
+.game-pin__silhouette.is-target-reveal {
+  animation: game-pin-reveal-red-white 0.6s linear infinite;
+}
+
+.game-pin__land.is-target-final,
+.game-pin__silhouette.is-target-final {
+  fill: #b91c1c !important;
+}
+
+@keyframes game-pin-reveal-red-white {
+  0%,
+  100% {
+    fill: #b91c1c;
+  }
+  50% {
+    fill: #ffffff;
+  }
 }
 
 @keyframes game-pin-wrong {
