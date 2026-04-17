@@ -1164,6 +1164,32 @@
     if (el) el.textContent = text;
   }
 
+  function pinApplyMiniGameVisibility() {
+    var svg = document.getElementById("game-pin-svg");
+    var tip = document.getElementById("game-pin-tip");
+    var typePanel = document.getElementById("game-pin-type-panel");
+    var flagsBoard = document.getElementById("game-pin-flags-board");
+    var showType = !!(pinState.flagsMode && pinState.typingMode);
+    var showFlags = !!(pinState.flagsMode && !pinState.typingMode);
+    var showMap = !pinState.flagsMode;
+
+    if (svg) {
+      svg.hidden = !showMap;
+      svg.style.display = showMap ? "block" : "none";
+    }
+    if (flagsBoard) {
+      flagsBoard.hidden = !showFlags;
+      flagsBoard.style.display = showFlags ? "grid" : "none";
+    }
+    if (typePanel) {
+      typePanel.hidden = !showType;
+      typePanel.style.display = showType ? "grid" : "none";
+    }
+    if (tip) {
+      tip.hidden = !showMap || !!pinState.silhouetteMode;
+    }
+  }
+
   function pinShowRound() {
     if (pinState.gameEnded) return;
     if (pinState.index >= pinState.queue.length) {
@@ -1191,9 +1217,7 @@
     if (flagbar) flagbar.textContent = pinState.typingMode ? "" : c.flag;
     if (tipName) tipName.textContent = label;
     if (tipFlag) tipFlag.textContent = " " + c.flag;
-    if (tip) tip.hidden = !!pinState.silhouetteMode || !!pinState.flagsMode || !!pinState.typingMode;
-    if (flagsBoard) flagsBoard.hidden = !pinState.flagsMode || !!pinState.typingMode;
-    if (typePanel) typePanel.hidden = !pinState.flagsMode || !pinState.typingMode;
+    pinApplyMiniGameVisibility();
     if (typeFlag && pinState.flagsMode && pinState.typingMode) typeFlag.textContent = c.flag;
     if (typeInput && pinState.flagsMode && pinState.typingMode) {
       typeInput.value = "";
@@ -1509,6 +1533,7 @@
     pinState.lastRankLabel = "";
     pinState.forcedKind = null;
     applyPinMapMode(root);
+    pinApplyMiniGameVisibility();
     root.classList.toggle("game-pin--ranked", !pinState.casual);
     root.hidden = false;
     root.setAttribute("aria-hidden", "false");
