@@ -211,12 +211,12 @@ function viewBoxFromLonLat(minLon, minLat, maxLon, maxLat, pad = 0.12) {
 
 const REGION_PRESET_BOUNDS = {
   // Europe recentrée (évite l'extrême est russe)
-  europe: [-25, 30, 55, 72],
-  asie: [25, -5, 150, 65],
-  afrique: [-25, -36, 60, 38],
-  "amerique-nord": [-170, 7, -20, 83],
-  "amerique-sud": [-92, -58, -28, 15],
-  oceanie: [110, -50, 180, 5],
+  europe: [-13, 34, 42, 71],
+  asie: [40, 2, 135, 58],
+  afrique: [-18, -35, 52, 34],
+  "amerique-nord": [-160, 12, -52, 75],
+  "amerique-sud": [-83, -55, -36, 12],
+  oceanie: [112, -47, 172, -6],
 };
 
 const header = `/* Généré par scripts/build_europe_map.js — ne pas éditer à la main */

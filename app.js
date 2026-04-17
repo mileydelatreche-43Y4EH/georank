@@ -1056,6 +1056,12 @@
         p.setAttribute("data-iso", c.iso);
         p.setAttribute("d", c.d);
         lands.appendChild(p);
+        var ph = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        ph.setAttribute("class", "game-pin__land-hit");
+        ph.setAttribute("data-iso", c.iso);
+        ph.setAttribute("data-region", c.region || "monde");
+        ph.setAttribute("d", c.d);
+        lands.appendChild(ph);
         var s = document.createElementNS("http://www.w3.org/2000/svg", "path");
         s.setAttribute("class", "game-pin__silhouette");
         s.setAttribute("data-iso", c.iso);
