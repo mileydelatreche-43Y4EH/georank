@@ -665,6 +665,7 @@
     startedAtMs: 0,
     savedHistory: false,
     lastRankLabel: "",
+    forcedKind: null,
   };
 
   function pushClipEvent(action, extra) {
@@ -837,9 +838,10 @@
   function buildPinQueue() {
     var q = [];
     var M = getEuropeMapData();
-    var cap = isCapitalsPinQuiz();
-    var sil = !cap && isSilhouettePinQuiz();
-    var flags = !cap && !sil && isFlagsQuiz();
+    var forced = pinState.forcedKind;
+    var cap = forced ? forced === "CAPITALES" : isCapitalsPinQuiz();
+    var sil = forced ? forced === "SILHOUETTES" : !cap && isSilhouettePinQuiz();
+    var flags = forced ? forced === "DRAPEAUX" : !cap && !sil && isFlagsQuiz();
     pinState.capitalMode = cap;
     pinState.silhouetteMode = sil;
     pinState.flagsMode = flags;
@@ -1483,7 +1485,11 @@
     pinState.rankedSeconds = opts.rankedSeconds > 0 ? opts.rankedSeconds : null;
     pinState.casual = opts.forceRanked ? false : !pinState.rankedSeconds;
     pinState.typingMode = !!opts.typingMode;
+    pinState.forcedKind = opts.quizKind || null;
     pinState.queue = buildPinQueue();
+    if (pinState.typingMode && !pinState.flagsMode) {
+      pinState.typingMode = false;
+    }
     if (pinState.queue.length === 0) {
       window.alert("Carte Europe indisponible. Vérifiez que js/europe-map-data.js est chargé.");
       return;
@@ -1501,6 +1507,7 @@
     pinState.startedAtMs = Date.now();
     pinState.savedHistory = false;
     pinState.lastRankLabel = "";
+    pinState.forcedKind = null;
     applyPinMapMode(root);
     root.classList.toggle("game-pin--ranked", !pinState.casual);
     root.hidden = false;
@@ -1540,6 +1547,7 @@
     if (tip) tip.hidden = true;
     var el = document.getElementById("game-pin-timer");
     if (el) el.classList.remove("game-pin__timer--cooldown", "game-pin__timer--warn");
+    pinState.forcedKind = null;
   }
 
   function closeGamePinIfOpen() {
@@ -1674,6 +1682,7 @@
       forceRanked: true,
       rankedSeconds: game.timer > 0 ? game.timer : null,
       typingMode: !!game.typing,
+      quizKind: game.cat || null,
     });
   }
 
