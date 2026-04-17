@@ -1353,8 +1353,6 @@
           pinPaintTargetState(cur, "is-target-miss2");
         } else if (pinState.targetMisses === 1) {
           pinPaintTargetState(cur, "is-target-miss1");
-        } else {
-          pinPaintTargetState(cur, "is-target-clean");
         }
         setTimeout(pinShowRound, 260);
       } else {
@@ -1370,11 +1368,7 @@
       }
       if (cur.kind !== "f") {
         pinState.targetMisses++;
-        if (pinState.targetMisses === 1) {
-          pinPaintTargetState(cur, "is-target-miss1");
-        } else if (pinState.targetMisses === 2) {
-          pinPaintTargetState(cur, "is-target-miss2");
-        } else if (pinState.targetMisses >= 3) {
+        if (pinState.targetMisses >= 3) {
           pinState.revealRequired = true;
           pinPaintTargetState(cur, "is-target-reveal");
         }
