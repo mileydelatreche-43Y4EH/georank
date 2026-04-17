@@ -2175,8 +2175,8 @@ body.game-pin-active {
 }
 .rk-userbar__mini-badge span { color:#fff; font-weight:900; }
 .rk-userbar__player-info { display:flex; flex-direction:column; gap:2px; }
-.rk-userbar__username { font-size:.9rem; font-weight:700; color:#fff; }
-.rk-userbar__rank-lbl { font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.rk-userbar__rank-lbl { font-size:.88rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#fff; }
+.rk-userbar__rank-sub { font-size:.68rem; font-weight:500; color:rgba(255,255,255,.45); margin-top:1px; }
 .rk-userbar__unranked { font-size:.75rem; font-weight:700; letter-spacing:.12em; color:rgba(255,255,255,.3); }
 
 /* Region nav */

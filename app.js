@@ -1810,29 +1810,39 @@
     });
   }
 
+  function computeOverallRank() {
+    var hist = loadRankedHistory();
+    if (!hist.length) return null;
+    /* Meilleur score par quiz unique, puis moyenne des % */
+    var byQuiz = {};
+    hist.forEach(function (h) {
+      var key = h.quizTitle || "?";
+      if (!(key in byQuiz) || (h.pct || 0) > byQuiz[key]) {
+        byQuiz[key] = h.pct || 0;
+      }
+    });
+    var keys = Object.keys(byQuiz);
+    if (!keys.length) return null;
+    var avgPct = Math.round(keys.reduce(function (acc, k) { return acc + byQuiz[k]; }, 0) / keys.length);
+    return rankFromPercent(avgPct);
+  }
+
   function renderRankedPageUserBar() {
     var bar = document.getElementById("rk-user-bar");
     if (!bar) return;
-    var loggedIn = localStorage.getItem(AUTH_KEY) === "1";
-    var hist = loadRankedHistory();
-    /* Calcule le rang global en agrégeant tous les pct */
-    var bestPct = 0;
-    if (hist.length) {
-      bestPct = Math.round(hist.reduce(function (acc, h) { return Math.max(acc, h.pct || 0); }, 0));
-    }
-    var r = rankFromPercent(bestPct);
+    var r = computeOverallRank(); /* null = aucune partie jouée */
     bar.innerHTML =
       '<div class="rk-userbar__left">' +
         '<h1 class="rk-userbar__title">MODE CLASSÉ</h1>' +
         '<p class="rk-userbar__sub">Montez en rang · Battez vos records · Défiez la planète</p>' +
       '</div>' +
       '<div class="rk-userbar__right">' +
-        (loggedIn
+        (r
           ? '<div class="rk-userbar__player">' +
               '<div class="rk-userbar__mini-badge rk-badge--' + r.tier.key + '" style="--rank-color:' + r.tier.color + ';--rank-fill:' + r.tier.barFill + '"><span>★</span></div>' +
               '<div class="rk-userbar__player-info">' +
-                '<span class="rk-userbar__username">' + (localStorage.getItem("georank_username") || "Joueur") + '</span>' +
                 '<span class="rk-userbar__rank-lbl">' + r.fullLabel + '</span>' +
+                '<span class="rk-userbar__rank-sub">Moyenne globale · ' + r.pct + '%</span>' +
               '</div>' +
             '</div>'
           : '<span class="rk-userbar__unranked">UNRANKED</span>') +
