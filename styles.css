@@ -1921,6 +1921,47 @@ body.game-pin-active {
   margin-left: 0.25rem;
 }
 
+.game-pin__pick-label {
+  position: absolute;
+  z-index: 8;
+  transform: translate(-50%, -120%);
+  padding: 0.3rem 0.55rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+.game-pin__pick-label.is-wrong {
+  background: #ef4444;
+  color: #fff;
+}
+
+.game-pin__pick-label.is-ok {
+  background: #22c55e;
+  color: #062e14;
+}
+
+.game-pin__pick-label.is-pop {
+  animation: game-pin-pick-pop 0.65s ease;
+}
+
+@keyframes game-pin-pick-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(0.92);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -155%) scale(1);
+  }
+}
+
 .game-pin__subtitle {
   position: absolute;
   bottom: 0.75rem;

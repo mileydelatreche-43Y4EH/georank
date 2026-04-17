@@ -654,6 +654,7 @@
     targetMisses: 0,
     revealRequired: false,
     lastLaunchOpts: null,
+    audioCtx: null,
   };
 
   function pushClipEvent(action, extra) {
@@ -985,6 +986,7 @@
       '<button type="submit" class="game-pin__type-submit">Valider</button>' +
       "</form></div>" +
       '<div class="game-pin__tip" id="game-pin-tip" hidden>Cliquez sur <strong id="game-pin-tip-name">—</strong><span class="game-pin__tip-flag" id="game-pin-tip-flag"></span></div>' +
+      '<div class="game-pin__pick-label" id="game-pin-pick-label" hidden aria-hidden="true">—</div>' +
       '<div class="game-pin__subtitle" id="game-pin-subtitle"></div>' +
       /* ── HUD bottom ranked (visible uniquement en mode classé) ── */
       '<div class="game-pin__ranked-hud" id="game-pin-ranked-hud" aria-hidden="true">' +
@@ -1096,7 +1098,7 @@
         if (!pinState.flagsMode || pinState.typingMode) return;
         var btn = e.target.closest && e.target.closest("button[data-flag-id]");
         if (!btn) return;
-        pinOnPick({ flagId: btn.getAttribute("data-flag-id"), el: btn });
+        pinOnPick({ flagId: btn.getAttribute("data-flag-id"), el: btn, x: e.clientX, y: e.clientY });
       });
     }
 
@@ -1134,17 +1136,17 @@
           var dot = e.target.closest && e.target.closest("circle[data-cap-id]");
           if (!dot) return;
           if (dot.classList.contains("is-out-region")) return;
-          pinOnPick({ capId: dot.getAttribute("data-cap-id"), el: dot });
+          pinOnPick({ capId: dot.getAttribute("data-cap-id"), el: dot, x: e.clientX, y: e.clientY });
         } else if (pinState.silhouetteMode) {
           var sil = e.target.closest && e.target.closest("path.game-pin__silhouette[data-iso]");
           if (!sil) return;
           if (sil.classList.contains("is-out-region")) return;
-          pinOnPick({ iso: sil.getAttribute("data-iso"), el: sil });
+          pinOnPick({ iso: sil.getAttribute("data-iso"), el: sil, x: e.clientX, y: e.clientY });
         } else {
           var path = e.target.closest && e.target.closest("path[data-iso]");
           if (!path) return;
           if (path.classList.contains("is-out-region")) return;
-          pinOnPick({ iso: path.getAttribute("data-iso"), el: path });
+          pinOnPick({ iso: path.getAttribute("data-iso"), el: path, x: e.clientX, y: e.clientY });
         }
       });
     }
@@ -1220,6 +1222,95 @@
   function pinHudSyncTimer(text) {
     var el = document.getElementById("game-pin-hud-time");
     if (el) el.textContent = text;
+  }
+
+  function ensurePinAudioContext() {
+    if (pinState.audioCtx) return pinState.audioCtx;
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return null;
+      pinState.audioCtx = new Ctx();
+      return pinState.audioCtx;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function pinPlaySfx(type) {
+    var ctx = ensurePinAudioContext();
+    if (!ctx) return;
+    if (ctx.state === "suspended") ctx.resume().catch(function () {});
+    function tone(freq, at, dur, gain, wave) {
+      var o = ctx.createOscillator();
+      var g = ctx.createGain();
+      o.type = wave || "triangle";
+      o.frequency.value = freq;
+      o.connect(g);
+      g.connect(ctx.destination);
+      var t0 = ctx.currentTime + at;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(gain || 0.06, t0 + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.start(t0);
+      o.stop(t0 + dur + 0.02);
+    }
+    if (type === "ok") {
+      tone(540, 0, 0.11, 0.05, "triangle");
+      tone(760, 0.09, 0.14, 0.06, "triangle");
+    } else if (type === "wrong") {
+      tone(280, 0, 0.12, 0.06, "sawtooth");
+      tone(210, 0.09, 0.16, 0.06, "sawtooth");
+    } else if (type === "reveal") {
+      tone(190, 0, 0.1, 0.06, "square");
+      tone(190, 0.14, 0.1, 0.06, "square");
+      tone(190, 0.28, 0.1, 0.06, "square");
+    }
+  }
+
+  function pinShowPickNameLabel(name, ok, x, y) {
+    var map = document.getElementById("game-pin-map");
+    var label = document.getElementById("game-pin-pick-label");
+    if (!map || !label || !name) return;
+    var rect = map.getBoundingClientRect();
+    var left = typeof x === "number" ? x - rect.left : rect.width * 0.5;
+    var top = typeof y === "number" ? y - rect.top : rect.height * 0.5;
+    left = Math.max(18, Math.min(rect.width - 18, left));
+    top = Math.max(18, Math.min(rect.height - 18, top));
+    label.textContent = name;
+    label.className = "game-pin__pick-label " + (ok ? "is-ok" : "is-wrong");
+    label.style.left = left + "px";
+    label.style.top = top + "px";
+    label.hidden = false;
+    label.classList.remove("is-pop");
+    void label.offsetWidth;
+    label.classList.add("is-pop");
+    setTimeout(function () {
+      label.hidden = true;
+    }, 650);
+  }
+
+  function pinGuessNameFromHit(cur, hit) {
+    if (!cur || !hit) return "";
+    if (cur.kind === "f") {
+      var f = EUROPE_FLAG_ITEMS.find(function (x) {
+        return x.id === hit.flagId;
+      });
+      return f ? f.name : "";
+    }
+    if (cur.kind === "k") {
+      var M = getEuropeMapData();
+      if (!M || !M.capitals) return "";
+      var cap = M.capitals.find(function (x) {
+        return x.id === hit.capId;
+      });
+      return cap ? cap.city : "";
+    }
+    var M2 = getEuropeMapData();
+    if (!M2 || !M2.countries) return "";
+    var c = M2.countries.find(function (x) {
+      return x.iso === hit.iso;
+    });
+    return c ? c.name : "";
   }
 
   function pinResetTargetVisualState() {
@@ -1360,6 +1451,7 @@
     }
 
     if (ok) {
+      pinPlaySfx("ok");
       pinState.correct++;
       pinState.index++;
       if (el) {
@@ -1385,6 +1477,7 @@
         pinShowRound();
       }
     } else {
+      pinPlaySfx("wrong");
       pinState.wrong++;
       if (el) {
         el.classList.add("is-wrong");
@@ -1393,9 +1486,12 @@
         }, 450);
       }
       if (cur.kind !== "f") {
+        var guessed = pinGuessNameFromHit(cur, hit);
+        pinShowPickNameLabel(guessed, false, hit && hit.x, hit && hit.y);
         pinState.targetMisses++;
         if (pinState.targetMisses >= 3) {
           pinState.revealRequired = true;
+          pinPlaySfx("reveal");
           pinPaintTargetState(cur, "is-target-reveal");
         }
       }
