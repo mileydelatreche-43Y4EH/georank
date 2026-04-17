@@ -1790,6 +1790,45 @@
     );
   }
 
+  var RK_CATEGORIES = [
+    { key: "CARTE",       label: "Jeux de carte" },
+    { key: "CAPITALES",   label: "Jeux de capitales" },
+    { key: "DRAPEAUX",    label: "Jeux de drapeaux" },
+    { key: "SILHOUETTES", label: "Jeux de silhouettes" },
+  ];
+
+  function makeRankedCard(game) {
+    var card = document.createElement("div");
+    card.className = "rk-card" + (rankedState.activeGame && rankedState.activeGame.id === game.id ? " is-active" : "");
+    card.setAttribute("data-game-id", game.id);
+    card.innerHTML =
+      '<div class="rk-card__thumb rk-thumb rk-thumb--' + game.cat.toLowerCase() + '">' +
+        '<span class="rk-card__thumb-icon" aria-hidden="true">' + game.icon + '</span>' +
+        '<div class="rk-card__hover-overlay">' +
+          '<button type="button" class="rk-card__info-btn">Info &amp; Stats</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="rk-card__footer">' +
+        '<span class="rk-card__cat" style="color:' + game.catColor + '">' + game.cat + '</span>' +
+        '<div class="rk-card__bottom">' +
+          '<span class="rk-card__title">' + game.title + '</span>' +
+          '<div class="rk-card__right">' +
+            renderRankedCardBadge(game) +
+            '<button type="button" class="rk-card__arr" aria-label="Voir détails">▾</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    card.addEventListener("click", function (e) {
+      if (e.target.closest(".rk-card__arr") || e.target.closest(".rk-card__info-btn")) {
+        e.preventDefault();
+        openRankedPanel(game);
+        return;
+      }
+      openRankedPanel(game);
+    });
+    return card;
+  }
+
   function renderRankedGrid() {
     var grid = document.getElementById("rk-grid");
     if (!grid) return;
@@ -1801,39 +1840,25 @@
       grid.innerHTML = '<p class="rk-empty">Aucun jeu disponible pour cette sélection.</p>';
       return;
     }
-    filtered.forEach(function (game) {
-      var card = document.createElement("div");
-      card.className = "rk-card" + (rankedState.activeGame && rankedState.activeGame.id === game.id ? " is-active" : "");
-      card.setAttribute("data-game-id", game.id);
-      card.innerHTML =
-        '<div class="rk-card__thumb rk-thumb rk-thumb--' + game.cat.toLowerCase() + '">' +
-          '<span class="rk-card__thumb-icon" aria-hidden="true">' + game.icon + '</span>' +
-          '<div class="rk-card__hover-overlay">' +
-            '<button type="button" class="rk-card__info-btn">Info &amp; Stats</button>' +
-          '</div>' +
-        '</div>' +
-        '<div class="rk-card__footer">' +
-          '<span class="rk-card__cat" style="color:' + game.catColor + '">' + game.cat + '</span>' +
-          '<div class="rk-card__bottom">' +
-            '<span class="rk-card__title">' + game.title + '</span>' +
-            '<div class="rk-card__right">' +
-              renderRankedCardBadge(game) +
-              '<button type="button" class="rk-card__arr" aria-label="Voir détails">▾</button>' +
-            '</div>' +
-          '</div>' +
-        '</div>';
 
-      card.addEventListener("click", function (e) {
-        if (e.target.closest(".rk-card__arr") || e.target.closest(".rk-card__info-btn")) {
-          e.preventDefault();
-          openRankedPanel(game);
-          return;
-        }
-        openRankedPanel(game);
-      });
-      grid.appendChild(card);
+    /* Grouper par catégorie */
+    RK_CATEGORIES.forEach(function (cat) {
+      var games = filtered.filter(function (g) { return g.cat === cat.key; });
+      if (!games.length) return;
+
+      var section = document.createElement("div");
+      section.className = "rk-section";
+      section.innerHTML = '<h2 class="rk-section__title">' + cat.label + '</h2>';
+
+      var row = document.createElement("div");
+      row.className = "rk-section__grid";
+      games.forEach(function (game) { row.appendChild(makeRankedCard(game)); });
+
+      section.appendChild(row);
+      grid.appendChild(section);
     });
   }
+
 
   function computeOverallRank() {
     var hist = loadRankedHistory();
