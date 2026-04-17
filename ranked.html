@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mode Classé — GeoRank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="theme-ranked">
+    <div class="ambient-bg" aria-hidden="true"></div>
+
+    <!-- ── Site header ── -->
+    <div class="top-bar">
+      <header class="site-header">
+        <div class="brand">
+          <a href="index.html" class="brand-link"><span class="brand-name">GeoRank</span></a>
+          <span class="brand-sub">BY GEOGUESSR</span>
+        </div>
+        <nav class="nav-main" aria-label="Navigation principale">
+          <a href="index.html">Toutes</a>
+          <a href="regions/europe.html">Europe</a>
+          <a href="regions/amerique-nord.html">Amérique du Nord</a>
+          <a href="regions/amerique-sud.html">Amérique du Sud</a>
+          <a href="regions/afrique.html">Afrique</a>
+          <a href="regions/asie.html">Asie</a>
+          <a href="regions/oceanie.html">Océanie</a>
+          <a href="regions/monde.html">Monde</a>
+          <a href="ranked.html" class="is-active nav-ranked-link">Mode Classé</a>
+        </nav>
+        <div class="header-actions">
+          <div class="header-auth header-auth--guest" id="header-guest">
+            <button type="button" class="btn-login" id="btn-login">Se connecter</button>
+          </div>
+          <div class="header-auth header-auth--user" id="header-user" hidden>
+            <div class="profile-wrap">
+              <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-haspopup="menu" aria-controls="profile-menu" aria-label="Ouvrir le menu profil">
+                <span class="profile-avatar" id="profile-avatar-initials">GR</span>
+              </button>
+              <ul class="profile-menu" id="profile-menu" role="menu" hidden>
+                <li role="none"><a href="profil.html" role="menuitem">Mon profil</a></li>
+                <li role="none"><a href="scores.html" role="menuitem">Mes scores</a></li>
+                <li role="none"><button type="button" class="profile-menu-logout" role="menuitem" id="btn-logout">Déconnexion</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <!-- ── Ranked page body ── -->
+    <main class="rk-page">
+
+      <!-- User bar + page title -->
+      <div class="rk-userbar" id="rk-user-bar">
+        <!-- filled by JS -->
+      </div>
+
+      <!-- Region tabs -->
+      <nav class="rk-region-nav" aria-label="Filtrer par région">
+        <button class="rk-region-tab is-active" data-region="all">TOUTES</button>
+        <button class="rk-region-tab" data-region="europe">EUROPE</button>
+        <button class="rk-region-tab rk-region-tab--soon" data-region="amerique-nord" disabled>AMÉRIQUE DU NORD <span class="rk-soon-badge">Bientôt</span></button>
+        <button class="rk-region-tab rk-region-tab--soon" data-region="amerique-sud" disabled>AMÉRIQUE DU SUD <span class="rk-soon-badge">Bientôt</span></button>
+        <button class="rk-region-tab rk-region-tab--soon" data-region="afrique" disabled>AFRIQUE <span class="rk-soon-badge">Bientôt</span></button>
+        <button class="rk-region-tab rk-region-tab--soon" data-region="asie" disabled>ASIE <span class="rk-soon-badge">Bientôt</span></button>
+        <button class="rk-region-tab rk-region-tab--soon" data-region="oceanie" disabled>OCÉANIE <span class="rk-soon-badge">Bientôt</span></button>
+        <button class="rk-region-tab rk-region-tab--soon" data-region="monde" disabled>MONDE <span class="rk-soon-badge">Bientôt</span></button>
+      </nav>
+
+      <!-- Difficulty tabs + grid + panel wrapper -->
+      <div class="rk-layout">
+
+        <!-- Left: diff tabs + grid -->
+        <div class="rk-layout__left">
+          <div class="rk-diff-tabs" role="tablist" aria-label="Difficulté">
+            <button class="rk-diff-tab is-active" role="tab" data-diff="basic" aria-selected="true">
+              DÉBUTANT <span class="rk-diff-count">5</span>
+            </button>
+            <button class="rk-diff-tab" role="tab" data-diff="inter" aria-selected="false">
+              INTERMÉDIAIRE <span class="rk-diff-count">5</span>
+            </button>
+            <button class="rk-diff-tab" role="tab" data-diff="avance" aria-selected="false">
+              AVANCÉ <span class="rk-diff-count">5</span>
+            </button>
+          </div>
+
+          <div class="rk-grid" id="rk-grid" aria-label="Jeux classés">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+        <!-- Right: detail panel (slides in when a card is selected) -->
+        <aside class="rk-panel" id="rk-panel" aria-label="Détails du jeu" aria-hidden="true">
+          <button type="button" class="rk-panel__close" id="rk-panel-close" aria-label="Fermer">×</button>
+
+          <!-- Game visual -->
+          <div class="rk-panel__thumb rk-thumb rk-thumb--carte"></div>
+
+          <!-- Header info -->
+          <div class="rk-panel__header">
+            <div class="rk-panel__meta">
+              <span class="rk-panel__cat">CARTE</span>
+              <span class="rk-panel__timer-badge rk-panel__timer-badge--basic">Libre</span>
+            </div>
+            <h2 class="rk-panel__title">—</h2>
+            <p class="rk-panel__desc">—</p>
+          </div>
+
+          <!-- Play button -->
+          <button type="button" class="rk-panel__play">
+            <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true"><path d="M1 0L13 8L1 16V0Z"/></svg>
+            JOUER
+          </button>
+
+          <!-- My Highscore -->
+          <div class="rk-panel__hs-section">
+            <h3 class="rk-panel__section-title">🏆 MY HIGHSCORE</h3>
+            <div class="rk-panel__hs" id="rk-panel-hs">
+              <span class="rk-panel__hs-empty">Pas encore joué</span>
+            </div>
+          </div>
+
+          <!-- Leaderboard -->
+          <div class="rk-panel__lb-section">
+            <h3 class="rk-panel__section-title">Classement</h3>
+            <div class="rk-panel__lb-tabs" role="tablist">
+              <button class="rk-panel__lb-tab" role="tab" data-period="day">Aujourd'hui</button>
+              <button class="rk-panel__lb-tab" role="tab" data-period="week">Semaine</button>
+              <button class="rk-panel__lb-tab" role="tab" data-period="month">Mois</button>
+              <button class="rk-panel__lb-tab is-active" role="tab" data-period="all">Tout Temps</button>
+            </div>
+            <table class="rk-lb" aria-label="Classement">
+              <thead>
+                <tr>
+                  <th class="rk-lb__rank">#</th>
+                  <th class="rk-lb__user">Joueur</th>
+                  <th class="rk-lb__score">Score</th>
+                </tr>
+              </thead>
+              <tbody id="rk-panel-lb-body">
+              </tbody>
+            </table>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script src="js/europe-map-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

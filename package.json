@@ -1,0 +1,10 @@
+{
+  "name": "seterra-landing",
+  "private": true,
+  "scripts": {
+    "build:map": "node scripts/build_europe_map.js"
+  },
+  "devDependencies": {
+    "d3-geo": "^3.1.1"
+  }
+}

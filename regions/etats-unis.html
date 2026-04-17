@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Les États-Unis — GeoRank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="theme-ranked">
+    <div class="ambient-bg" aria-hidden="true"></div>
+    <div class="top-bar">
+      <header class="site-header">
+        <div class="brand">
+          <a href="../index.html" class="brand-link"><span class="brand-name">GeoRank</span></a>
+          <span class="brand-sub">BY GEOGUESSR</span>
+        </div>
+        <nav class="nav-main" aria-label="Régions">
+          <a href="../index.html">Toutes</a>
+          <a href="europe.html">Europe</a>
+          <a href="amerique-nord.html" class="is-active">Amérique du Nord</a>
+          <a href="amerique-sud.html">Amérique du Sud</a>
+          <a href="afrique.html">Afrique</a>
+          <a href="asie.html">Asie</a>
+          <a href="oceanie.html">Océanie</a>
+          <a href="monde.html">Monde</a>
+          <a href="../ranked.html" class="nav-ranked-link">Mode Classé</a>
+        </nav>
+        <div class="header-actions">
+          <div class="header-auth header-auth--guest" id="header-guest">
+            <button type="button" class="btn-login" id="btn-login">Se connecter</button>
+          </div>
+          <div class="header-auth header-auth--user" id="header-user" hidden>
+            <div class="profile-wrap">
+              <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-haspopup="menu" aria-controls="profile-menu" aria-label="Ouvrir le menu profil">
+                <span class="profile-avatar" id="profile-avatar-initials">GR</span>
+              </button>
+              <ul class="profile-menu" id="profile-menu" role="menu" hidden>
+                <li role="none"><a href="../profil.html" role="menuitem">Mon profil</a></li>
+                <li role="none"><a href="../scores.html" role="menuitem">Mes scores</a></li>
+                <li role="none"><button type="button" class="profile-menu-logout" role="menuitem" id="btn-logout">Déconnexion</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <main class="page-content region-page">
+      <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+        <a href="../index.html">jeux de géographie</a>
+        <span class="sep">&gt;&gt;</span>
+        <span>Les États-Unis</span>
+      </nav>
+
+      <h1 class="page-title">Les États-Unis — Jeux de géographie</h1>
+
+      <div class="mode-row">
+        <span class="mode-label">MODE DE JEU :</span>
+        <div class="mode-buttons" role="group" aria-label="Mode de jeu">
+          <button type="button" data-active="true">EPINGLER</button>
+          <button type="button" data-active="false">SAISIR</button>
+        </div>
+      </div>
+
+      <div class="region-hero">
+        <div class="region-hero__card-wrap">
+          <article class="region-card region-card--static">
+            <div class="card-map-wrap">
+              <svg viewBox="0 0 200 160" width="180" height="144" aria-hidden="true">
+                <path
+                  fill="#2d8a45"
+                  d="M38 42c32-14 70-10 96 12 18 14 28 38 26 62-2 26-16 50-38 64-24 16-54 18-80 6-30-14-48-44-44-78 4-30 24-54 40-66zm24 36c-8 10-6 26 6 34 12 8 30 4 38-8 8-12 4-30-10-38-14-8-32-2-34 12zM118 88c6 4 8 14 2 22-6 8-18 8-26 2-8-6-8-18 2-24 6-4 16-4 22 0z"
+                />
+              </svg>
+              <span class="region-badge">Les États-Unis</span>
+            </div>
+            <div class="pill-list">
+              <div class="pill"><span class="pill-cat">États</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Drapeaux</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Villes</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+            </div>
+          </article>
+        </div>
+        <div class="region-hero__intro">
+          <p class="region-hero__text">
+            Les États-Unis comptent cinquante États fédérés aux paysages et cultures très variés. GeoRank propose des cartes pour mémoriser les États, leurs drapeaux et les principales villes, région par région.
+          </p>
+        </div>
+      </div>
+
+      <section class="region-quiz-block" aria-labelledby="quiz-us-title">
+        <h2 id="quiz-us-title" class="region-quiz-block__title">Jeux de carte</h2>
+        <ul class="region-quiz-list">
+          <li><a href="#">États-Unis : les 50 États</a></li>
+          <li><a href="#">États-Unis : États de la Nouvelle-Angleterre</a></li>
+          <li><a href="#">États-Unis : Mid-Atlantic et Sud-Est</a></li>
+          <li><a href="#">États-Unis : Grandes plaines</a></li>
+          <li><a href="#">États-Unis : Sud-Ouest</a></li>
+          <li><a href="#">États-Unis : Pacifique Nord-Ouest</a></li>
+          <li><a href="#">États-Unis : 15 États les moins peuplés</a></li>
+          <li><a href="#">États-Unis : capitales d’État</a></li>
+          <li><a href="#">États-Unis : drapeaux des États</a></li>
+          <li><a href="#">États-Unis : grandes villes</a></li>
+          <li><a href="#">États-Unis : rivières et lacs</a></li>
+          <li><a href="#">États-Unis : parcs nationaux</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="../js/europe-map-data.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>

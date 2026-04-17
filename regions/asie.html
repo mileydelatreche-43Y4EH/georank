@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Asie — GeoRank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="theme-ranked">
+    <div class="ambient-bg" aria-hidden="true"></div>
+    <div class="top-bar">
+      <header class="site-header">
+        <div class="brand">
+          <a href="../index.html" class="brand-link"><span class="brand-name">GeoRank</span></a>
+          <span class="brand-sub">BY GEOGUESSR</span>
+        </div>
+        <nav class="nav-main" aria-label="Régions">
+          <a href="../index.html">Toutes</a>
+          <a href="europe.html">Europe</a>
+          <a href="amerique-nord.html">Amérique du Nord</a>
+          <a href="amerique-sud.html">Amérique du Sud</a>
+          <a href="afrique.html">Afrique</a>
+          <a href="asie.html" class="is-active">Asie</a>
+          <a href="oceanie.html">Océanie</a>
+          <a href="monde.html">Monde</a>
+          <a href="../ranked.html" class="nav-ranked-link">Mode Classé</a>
+        </nav>
+        <div class="header-actions">
+          <div class="header-auth header-auth--guest" id="header-guest">
+            <button type="button" class="btn-login" id="btn-login">Se connecter</button>
+          </div>
+          <div class="header-auth header-auth--user" id="header-user" hidden>
+            <div class="profile-wrap">
+              <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-haspopup="menu" aria-controls="profile-menu" aria-label="Ouvrir le menu profil">
+                <span class="profile-avatar" id="profile-avatar-initials">GR</span>
+              </button>
+              <ul class="profile-menu" id="profile-menu" role="menu" hidden>
+                <li role="none"><a href="../profil.html" role="menuitem">Mon profil</a></li>
+                <li role="none"><a href="../scores.html" role="menuitem">Mes scores</a></li>
+                <li role="none"><button type="button" class="profile-menu-logout" role="menuitem" id="btn-logout">Déconnexion</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <main class="page-content region-page">
+      <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+        <a href="../index.html">jeux de géographie</a>
+        <span class="sep">&gt;&gt;</span>
+        <span>Asie</span>
+      </nav>
+
+      <h1 class="page-title">Asie — Jeux de géographie</h1>
+
+      <div class="mode-row">
+        <span class="mode-label">MODE DE JEU :</span>
+        <div class="mode-buttons" role="group" aria-label="Mode de jeu">
+          <button type="button" data-active="true">EPINGLER</button>
+          <button type="button" data-active="false">SAISIR</button>
+        </div>
+      </div>
+
+      <div class="region-hero">
+        <div class="region-hero__card-wrap">
+          <article class="region-card region-card--static">
+            <div class="card-map-wrap">
+            <svg viewBox="0 0 280 180" width="220" height="140" aria-hidden="true">
+                <path fill="#2d8a45" d="M32 48c28-18 62-22 92-12 30 10 52 34 62 62 10 28 8 60-8 86-16 26-44 42-74 44-36 2-72-16-92-48-20-32-18-74 8-104 4-6 8-12 12-16zm48 28c-12 8-16 26-8 40 8 14 26 20 42 12 16-8 22-28 14-44-8-16-28-22-48-8zm88 24c10 6 14 20 8 32-6 12-20 18-34 12-14-6-20-22-12-36 8-14 24-18 38-8z" />
+              </svg>
+              <span class="region-badge">Asie</span>
+            </div>
+            <div class="pill-list">
+              <div class="pill"><span class="pill-cat">Pays</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Drapeaux</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Capitales</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+            </div>
+          </article>
+        </div>
+        <div class="region-hero__intro">
+          <p class="region-hero__text">
+            L’Asie s’étend du Moyen-Orient au Pacifique. Les sections couvrent ensembles régionaux, grands pays fédéraux et îles.
+          </p>
+        </div>
+      </div>
+
+      <div class="quiz-catalog">
+
+      <section class="quiz-section" aria-labelledby="as-m1">
+        <h2 id="as-m1" class="quiz-section__title">Jeux de carte</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie : pays et capitales</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie : drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie du Sud-Est : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie centrale : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Moyen-Orient : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie du Sud : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie de l’Est : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Russie (partie asiatique) : sujets fédéraux (aperçu)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Chine : provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Inde : États et territoires</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Japon : préfectures</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Indonésie : grandes îles</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="as-m2">
+        <h2 id="as-m2" class="quiz-section__title">Jeux de carte (pays individuels)</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Arabie saoudite : provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Iran : provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Turquie : provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Thaïlande : provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Viêt Nam : provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Philippines : régions</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="as-fl">
+        <h2 id="as-fl" class="quiz-section__title">Jeux de drapeau</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie : drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie : drapeaux (silhouettes)</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="as-pr">
+        <h2 id="as-pr" class="quiz-section__title">Documents à imprimer</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌏</span>
+              <span class="quiz-link-row__label">Asie : carte régionale</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      </div>
+
+      <div class="region-page-outro">
+        <p>
+          De la chaîne de l’Himalaya à la mer de Chine méridionale, reliez noms, formes et symboles.
+        </p>
+        <a class="quiz-footer-more" href="../index.html">&gt;&gt; Voir plus de jeux de géographie</a>
+      </div>
+    </main>
+
+    <script src="../js/europe-map-data.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>

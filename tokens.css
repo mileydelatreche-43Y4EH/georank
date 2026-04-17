@@ -1,0 +1,20 @@
+/**
+ * Jetons structurels (PROMPT 1 & 2 du doc de référence).
+ * Les couleurs « éducatives » du prompt sont remplacées par le thème sombre GG dans styles.css.
+ */
+:root {
+  /* Grille & espacement (prompt : base 12px) */
+  --space-1: 12px;
+  --space-2: 24px;
+  --space-3: 36px;
+  --section-pad-x: 40px;
+  --section-pad-y: 32px;
+  --gap-cards: 16px;
+  /* Rayons (prompt 1) */
+  --radius-btn: 6px;
+  --radius-card-ds: 10px;
+  /* Layout (prompt 2) */
+  --content-max: 1280px;
+  --sidebar-width: 220px;
+  --header-height: 80px;
+}

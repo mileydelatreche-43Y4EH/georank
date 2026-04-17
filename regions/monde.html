@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monde — GeoRank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="theme-ranked">
+    <div class="ambient-bg" aria-hidden="true"></div>
+    <div class="top-bar">
+      <header class="site-header">
+        <div class="brand">
+          <a href="../index.html" class="brand-link"><span class="brand-name">GeoRank</span></a>
+          <span class="brand-sub">BY GEOGUESSR</span>
+        </div>
+        <nav class="nav-main" aria-label="Régions">
+          <a href="../index.html">Toutes</a>
+          <a href="europe.html">Europe</a>
+          <a href="amerique-nord.html">Amérique du Nord</a>
+          <a href="amerique-sud.html">Amérique du Sud</a>
+          <a href="afrique.html">Afrique</a>
+          <a href="asie.html">Asie</a>
+          <a href="oceanie.html">Océanie</a>
+          <a href="monde.html" class="is-active">Monde</a>
+        </nav>
+        <div class="header-actions">
+          <div class="header-auth header-auth--guest" id="header-guest">
+            <button type="button" class="btn-login" id="btn-login">Se connecter</button>
+          </div>
+          <div class="header-auth header-auth--user" id="header-user" hidden>
+            <div class="profile-wrap">
+              <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-haspopup="menu" aria-controls="profile-menu" aria-label="Ouvrir le menu profil">
+                <span class="profile-avatar" id="profile-avatar-initials">GR</span>
+              </button>
+              <ul class="profile-menu" id="profile-menu" role="menu" hidden>
+                <li role="none"><a href="../profil.html" role="menuitem">Mon profil</a></li>
+                <li role="none"><a href="../scores.html" role="menuitem">Mes scores</a></li>
+                <li role="none"><button type="button" class="profile-menu-logout" role="menuitem" id="btn-logout">Déconnexion</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <main class="page-content region-page">
+      <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+        <a href="../index.html">jeux de géographie</a>
+        <span class="sep">&gt;&gt;</span>
+        <span>Monde</span>
+      </nav>
+
+      <h1 class="page-title">Monde — Jeux de géographie</h1>
+
+      <div class="mode-row">
+        <span class="mode-label">MODE DE JEU :</span>
+        <div class="mode-buttons" role="group" aria-label="Mode de jeu">
+          <button type="button" data-active="true">EPINGLER</button>
+          <button type="button" data-active="false">SAISIR</button>
+        </div>
+      </div>
+
+      <div class="region-hero">
+        <div class="region-hero__card-wrap">
+          <article class="region-card region-card--static">
+            <div class="card-map-wrap">
+            <svg viewBox="0 0 200 200" width="150" height="150" aria-hidden="true">
+                <circle cx="100" cy="100" r="78" fill="#87ceeb" opacity="0.35" />
+                <path
+                  fill="#2d8a45"
+                  d="M100 28c40 0 72 32 72 72s-32 72-72 72-72-32-72-72 32-72 72-72zm-20 24c-16 8-24 28-18 46 6 18 24 28 42 24 18-4 30-22 28-40-2-20-20-36-40-36-4 0-8 2-12 4zm48 52c8 4 12 14 8 24-4 10-16 14-26 10-10-4-14-16-10-26 4-10 16-14 28-8z"
+                />
+              </svg>
+              <span class="region-badge">Monde</span>
+            </div>
+            <div class="pill-list">
+              <div class="pill"><span class="pill-cat">Pays</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Drapeaux</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Villes</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+            </div>
+          </article>
+        </div>
+        <div class="region-hero__intro">
+          <p class="region-hero__text">
+            Les jeux « Monde » offrent une vision planétaire : pays, capitales, grandes villes et repères physiques. Faites défiler pour parcourir l’ensemble des modes.
+          </p>
+        </div>
+      </div>
+
+      <div class="quiz-catalog">
+
+      <section class="quiz-section" aria-labelledby="mo-m1">
+        <h2 id="mo-m1" class="quiz-section__title">Jeux de carte</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : tous les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : pays (version difficile)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : capitales</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : grandes villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : pays par continent</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : océans et mers</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : déserts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : chaînes montagneuses</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : fuseaux et méridien de Greenwich</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="mo-m2">
+        <h2 id="mo-m2" class="quiz-section__title">Jeux de carte (régions)</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Moyen-Orient : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Asie du Sud-Est : pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Pacifique : États insulaires</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Europe : aperçu</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Afrique : aperçu</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="mo-fl">
+        <h2 id="mo-fl" class="quiz-section__title">Jeux de drapeau</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : drapeaux emblématiques</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : drapeaux similaires</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="mo-pr">
+        <h2 id="mo-pr" class="quiz-section__title">Documents à imprimer</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : planisphère politique</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌐</span>
+              <span class="quiz-link-row__label">Monde : planisphère physique</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      </div>
+
+      <div class="region-page-outro">
+        <p>
+          Idéal pour réviser avant un concours ou un duel entre amis : chaque ligne mène à un mini-jeu focalisé.
+        </p>
+        <a class="quiz-footer-more" href="../index.html">&gt;&gt; Voir plus de jeux de géographie</a>
+      </div>
+    </main>
+
+    <script src="../js/europe-map-data.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Europe — GeoRank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="theme-ranked">
+    <div class="ambient-bg" aria-hidden="true"></div>
+    <div class="top-bar">
+      <header class="site-header">
+        <div class="brand">
+          <a href="../index.html" class="brand-link"><span class="brand-name">GeoRank</span></a>
+          <span class="brand-sub">BY GEOGUESSR</span>
+        </div>
+        <nav class="nav-main" aria-label="Régions">
+          <a href="../index.html">Toutes</a>
+          <a href="europe.html" class="is-active">Europe</a>
+          <a href="amerique-nord.html">Amérique du Nord</a>
+          <a href="amerique-sud.html">Amérique du Sud</a>
+          <a href="afrique.html">Afrique</a>
+          <a href="asie.html">Asie</a>
+          <a href="oceanie.html">Océanie</a>
+          <a href="monde.html">Monde</a>
+          <a href="../ranked.html" class="nav-ranked-link">Mode Classé</a>
+        </nav>
+        <div class="header-actions">
+          <div class="header-auth header-auth--guest" id="header-guest">
+            <button type="button" class="btn-login" id="btn-login">Se connecter</button>
+          </div>
+          <div class="header-auth header-auth--user" id="header-user" hidden>
+            <div class="profile-wrap">
+              <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-haspopup="menu" aria-controls="profile-menu" aria-label="Ouvrir le menu profil">
+                <span class="profile-avatar" id="profile-avatar-initials">GR</span>
+              </button>
+              <ul class="profile-menu" id="profile-menu" role="menu" hidden>
+                <li role="none"><a href="../profil.html" role="menuitem">Mon profil</a></li>
+                <li role="none"><a href="../scores.html" role="menuitem">Mes scores</a></li>
+                <li role="none"><button type="button" class="profile-menu-logout" role="menuitem" id="btn-logout">Déconnexion</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <main class="page-content region-page">
+      <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+        <a href="../index.html">jeux de géographie</a>
+        <span class="sep">&gt;&gt;</span>
+        <span>Europe</span>
+      </nav>
+
+      <h1 class="page-title">Europe — Jeux de géographie</h1>
+
+      <div class="mode-row">
+        <span class="mode-label">MODE DE JEU :</span>
+        <div class="mode-buttons" role="group" aria-label="Mode de jeu">
+          <button type="button" data-active="true">EPINGLER</button>
+          <button type="button" data-active="false">SAISIR</button>
+        </div>
+      </div>
+
+      <div class="region-hero">
+        <div class="region-hero__card-wrap">
+          <article class="region-card region-card--static">
+            <div class="card-map-wrap">
+            <svg viewBox="0 0 220 150" width="200" height="136" aria-hidden="true">
+                <path fill="#2d8a45" d="M108 18c16 0 32 8 42 22 6-4 14-5 22-2 12 4 20 16 20 30 0 8-3 16-9 22 6 10 5 24-4 34-9 10-24 13-36 8-4 14-16 26-31 30-15 4-32 0-44-10-12 8-28 10-42 4-18-8-28-28-24-48 4-18 20-32 38-34 2-18 16-34 34-38 10-2 20-1 30 2zm-58 52c-6 8-5 20 4 26 9 6 22 3 28-6 6-9 3-22-8-26-11-4-24 0-24 6z" />
+              </svg>
+              <span class="region-badge">Europe</span>
+            </div>
+            <div class="pill-list">
+              <div class="pill"><span class="pill-cat">Pays</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Drapeaux</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+              <div class="pill"><span class="pill-cat">Capitales</span><span class="pill-right">0% <span class="progress-ring" data-pct="0" aria-hidden="true"></span></span></div>
+            </div>
+          </article>
+        </div>
+        <div class="region-hero__intro">
+          <p class="region-hero__text">
+            L’Europe rassemble des dizaines de pays aux frontières et histoires riches. Faites défiler pour parcourir des centaines de mini-jeux : cartes politiques, grandes régions, subdivisions nationales, drapeaux et fiches — le tout organisé en sections comme sur les grands sites de géographie.
+          </p>
+        </div>
+      </div>
+
+      <div class="quiz-catalog">
+
+      <section class="quiz-section" aria-labelledby="eu-m1">
+        <h2 id="eu-m1" class="quiz-section__title">Jeux de carte</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#" data-ranked="true">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe 1919</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les pays (avec des images)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe 1914</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : silhouettes des pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🏰</span>
+              <span class="quiz-link-row__label">Europe médiévale (1444)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Union européenne : les pays (après Brexit)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🏛️</span>
+              <span class="quiz-link-row__label">L’Empire romain en l’an 117 : les provinces et États clients</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe du Sud : Pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🎶</span>
+              <span class="quiz-link-row__label">Concours Eurovision de la chanson 2025</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les capitales (version facile)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌲</span>
+              <span class="quiz-link-row__label">Pays nordiques : les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les capitales</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌲</span>
+              <span class="quiz-link-row__label">Pays nordiques : les pays et les capitales</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌲</span>
+              <span class="quiz-link-row__label">Scandinavie : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les villes (version difficile)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌲</span>
+              <span class="quiz-link-row__label">Norden : Testaments du géographe</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : géographie physique</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : Testaments des géographes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe du Nord : les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">⚽</span>
+              <span class="quiz-link-row__label">UEFA EURO 2024</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe du Sud : les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇴</span>
+              <span class="quiz-link-row__label">Norvège : comtés (-2019)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe de l’Est : les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : de grands paysages</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe de l’Ouest : les pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : les montagnes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les mers et lacs</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🌊</span>
+              <span class="quiz-link-row__label">La mer Méditerranée : les pays et les îles</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les fleuves et rivières</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : districts de Munich</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les chaînes de montagnes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : Région de la Ruhr</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : 12 points d’intérêt</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : zones urbaines autour du lac Mälaren</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🛡️</span>
+              <span class="quiz-link-row__label">Europe de la guerre froide (1949-1989)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : quartiers d’Aix-la-Chapelle</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">📜</span>
+              <span class="quiz-link-row__label">Europe : événements de la Seconde Guerre mondiale</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : Districts de Bavière</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">📜</span>
+              <span class="quiz-link-row__label">Europe 1939 (Mars-Septembre)</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="eu-m2">
+        <h2 id="eu-m2" class="quiz-section__title">Jeux de carte (pays individuels)</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇦🇱</span>
+              <span class="quiz-link-row__label">Albanie : les préfectures</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇱🇹</span>
+              <span class="quiz-link-row__label">Lituanie : comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : Bundesländer</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇱🇺</span>
+              <span class="quiz-link-row__label">Luxembourg : les cantons</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : les capitales des lands</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇲🇰</span>
+              <span class="quiz-link-row__label">Macédoine du Nord : municipalités</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : les districts de Berlin</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇲🇹</span>
+              <span class="quiz-link-row__label">Malte : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : les pays voisins</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇲🇩</span>
+              <span class="quiz-link-row__label">Moldavie : divisions administratives</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇦🇹</span>
+              <span class="quiz-link-row__label">Autriche : les Länder</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇲🇨</span>
+              <span class="quiz-link-row__label">Monaco : les quartiers</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇦🇹</span>
+              <span class="quiz-link-row__label">Autriche : les capitales des lands</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇲🇪</span>
+              <span class="quiz-link-row__label">Monténégro : municipalités</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇧🇪</span>
+              <span class="quiz-link-row__label">Belgique : les provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇴</span>
+              <span class="quiz-link-row__label">Norvège : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇧🇪</span>
+              <span class="quiz-link-row__label">Belgique : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇴</span>
+              <span class="quiz-link-row__label">Norvège : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇧🇾</span>
+              <span class="quiz-link-row__label">Biélorussie : les oblasts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇱</span>
+              <span class="quiz-link-row__label">Pays-Bas : les provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇧🇦</span>
+              <span class="quiz-link-row__label">Bosnie-Herzégovine : divisions politiques</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇱</span>
+              <span class="quiz-link-row__label">Pays-Bas : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇭🇷</span>
+              <span class="quiz-link-row__label">Croatie : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇵🇱</span>
+              <span class="quiz-link-row__label">Pologne : les voïvodies</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇰</span>
+              <span class="quiz-link-row__label">Danemark : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇵🇱</span>
+              <span class="quiz-link-row__label">Pologne : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇰</span>
+              <span class="quiz-link-row__label">Danemark : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇵🇹</span>
+              <span class="quiz-link-row__label">Portugal : les districts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇸</span>
+              <span class="quiz-link-row__label">Espagne : les communautés autonomes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇵🇹</span>
+              <span class="quiz-link-row__label">Portugal : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇸</span>
+              <span class="quiz-link-row__label">Espagne : les provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇴</span>
+              <span class="quiz-link-row__label">Roumanie : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇸</span>
+              <span class="quiz-link-row__label">Espagne : les Îles Baléares</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇴</span>
+              <span class="quiz-link-row__label">Roumanie : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇸</span>
+              <span class="quiz-link-row__label">Espagne : les Canaries</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇬🇧</span>
+              <span class="quiz-link-row__label">Royaume-Uni : Angleterre : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇪</span>
+              <span class="quiz-link-row__label">Estonie : comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🏴</span>
+              <span class="quiz-link-row__label">Royaume-Uni : Écosse : les council areas</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇮</span>
+              <span class="quiz-link-row__label">Finlande : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇬🇧</span>
+              <span class="quiz-link-row__label">Royaume-Uni : Irlande du Nord : zones de conseil</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇮</span>
+              <span class="quiz-link-row__label">Finlande : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇺</span>
+              <span class="quiz-link-row__label">Russie : les sujets de la Fédération</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇷</span>
+              <span class="quiz-link-row__label">France : arrondissements de Paris</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇺</span>
+              <span class="quiz-link-row__label">Russie : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇷</span>
+              <span class="quiz-link-row__label">France : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇺</span>
+              <span class="quiz-link-row__label">Russie : ville de Moscou</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇷</span>
+              <span class="quiz-link-row__label">France : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇿</span>
+              <span class="quiz-link-row__label">République tchèque : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇷</span>
+              <span class="quiz-link-row__label">France : les villes (version difficile)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇿</span>
+              <span class="quiz-link-row__label">République tchèque : districts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇬🇷</span>
+              <span class="quiz-link-row__label">Grèce : régions administratives</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇲</span>
+              <span class="quiz-link-row__label">Saint-Marin : municipalités</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇬🇷</span>
+              <span class="quiz-link-row__label">Grèce : municipalités d’Athènes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇸</span>
+              <span class="quiz-link-row__label">Serbie : districts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇭🇺</span>
+              <span class="quiz-link-row__label">Hongrie : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇰</span>
+              <span class="quiz-link-row__label">Slovaquie : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇭🇺</span>
+              <span class="quiz-link-row__label">Hongrie : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇮</span>
+              <span class="quiz-link-row__label">Slovénie : municipalités</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇮🇪</span>
+              <span class="quiz-link-row__label">Irlande (République) : les comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇭</span>
+              <span class="quiz-link-row__label">Suisse : les cantons</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇮🇹</span>
+              <span class="quiz-link-row__label">Italie : les provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇭</span>
+              <span class="quiz-link-row__label">Suisse : les lacs</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇮🇹</span>
+              <span class="quiz-link-row__label">Italie : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇭</span>
+              <span class="quiz-link-row__label">Suisse : les montagnes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇮🇹</span>
+              <span class="quiz-link-row__label">Italie : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : les provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇽🇰</span>
+              <span class="quiz-link-row__label">Kosovo : districts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇱🇻</span>
+              <span class="quiz-link-row__label">Lettonie : les villes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇺🇦</span>
+              <span class="quiz-link-row__label">Ukraine : les régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇱🇮</span>
+              <span class="quiz-link-row__label">Liechtenstein : municipalités</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇺🇦</span>
+              <span class="quiz-link-row__label">Ukraine : les villes</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="eu-m3">
+        <h2 id="eu-m3" class="quiz-section__title">Jeux de carte (pays)</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Mecklembourg-Poméranie occidentale : districts</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Rhénanie-Palatinat : districts administratifs</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Sarre : comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Rhénanie du Nord-Westphalie : districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Saxe : districts administratifs et districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Basse-Saxe : districts administratifs</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Saxe-Anhalt : districts ruraux et districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Brandebourg : districts ruraux et districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Schleswig-Holstein : districts administratifs</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Bade-Wurtemberg : districts ruraux et urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Thuringe : districts ruraux et districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Bavière : districts administratifs et districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Hesse : districts administratifs et districts urbains</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : districts administratifs et districts urbains</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="eu-m4">
+        <h2 id="eu-m4" class="quiz-section__title">Jeux de carte (municipalités)</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du Götaland</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : communes du comté de Blekinge</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du Svealand</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Skåne</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du Norrland</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : communes du comté de Halland</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : communes de Stockholm</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Värmland</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : communes du Grand Göteborg</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté d’Örebro</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : communes de Stormalmö</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Västmanland</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté d’Uppsala</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Dalarna</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Kronoberg</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Gävleborg</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Kalmar</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Västerbotten</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Gotland</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : municipalités du comté de Norrbotten</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="quiz-section" aria-labelledby="eu-m5">
+        <h2 id="eu-m5" class="quiz-section__title">Jeux de drapeau</h2>
+        <div class="quiz-section__panel">
+          <ul class="quiz-link-grid">
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : silhouettes des pays</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇭</span>
+              <span class="quiz-link-row__label">Suisse : les blasons des cantons</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les drapeaux (version facile)</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇴</span>
+              <span class="quiz-link-row__label">Norvège : comtés, armoiries</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe : les drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇧🇪</span>
+              <span class="quiz-link-row__label">Belgique : les drapeaux des provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe occidentale : les drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇺🇦</span>
+              <span class="quiz-link-row__label">Ukraine : les drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇺</span>
+              <span class="quiz-link-row__label">Europe de l’Est : les drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇧🇾</span>
+              <span class="quiz-link-row__label">Biélorussie : les drapeaux régionaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : les drapeaux des lands</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇭🇺</span>
+              <span class="quiz-link-row__label">Hongrie : drapeaux des comtés</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇭</span>
+              <span class="quiz-link-row__label">Suisse : les drapeaux des cantons</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇵🇱</span>
+              <span class="quiz-link-row__label">Pologne : drapeaux des voïvodies</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇫🇷</span>
+              <span class="quiz-link-row__label">France : les drapeaux des régions</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : provinces, armoiries</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇪🇸</span>
+              <span class="quiz-link-row__label">Espagne : drapeaux des communautés autonomes</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇪</span>
+              <span class="quiz-link-row__label">Suède : comtés, armoiries</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇮🇹</span>
+              <span class="quiz-link-row__label">Italie : les drapeaux régionaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇩🇪</span>
+              <span class="quiz-link-row__label">Allemagne : armoiries des lands</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇳🇱</span>
+              <span class="quiz-link-row__label">Pays-Bas : les drapeaux des provinces</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇸🇰</span>
+              <span class="quiz-link-row__label">Slovaquie : drapeaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇬🇧</span>
+              <span class="quiz-link-row__label">Royaume-Uni : drapeaux des comtés d’Angleterre</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇱🇹</span>
+              <span class="quiz-link-row__label">Lituanie : armoiries</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇦🇹</span>
+              <span class="quiz-link-row__label">Autriche : les drapeaux des lands</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇨🇿</span>
+              <span class="quiz-link-row__label">République tchèque : drapeaux régionaux</span>
+            </a>
+          </li>
+          <li>
+            <a class="quiz-link-row" href="#">
+              <span class="quiz-link-row__flag" aria-hidden="true">🇷🇺</span>
+              <span class="quiz-link-row__label">Russie : les drapeaux</span>
+            </a>
+          </li>
+          </ul>
+        </div>
+      </section>
+
+      </div>
+
+      <div class="region-page-outro">
+        <p>
+          De l’Atlantique à l’Oural, des fjords nordiques à la Méditerranée, chaque série aide à relier pays, capitales et emblèmes. Les listes sont conçues pour défiler sur une longue page, comme un catalogue de quiz.
+        </p>
+        <a class="quiz-footer-more" href="../index.html">&gt;&gt; Voir plus de jeux de géographie</a>
+      </div>
+    </main>
+
+    <script src="../js/europe-map-data.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>
